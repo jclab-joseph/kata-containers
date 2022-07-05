@@ -19,6 +19,7 @@ jobs:
       matrix:
         asset:
           - kernel
+          - kernel-experimental
           - shim-v2
           - qemu
           - qemu-experimental
