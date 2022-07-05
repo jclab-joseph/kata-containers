@@ -25,6 +25,7 @@ readonly clh_builder="${static_build_dir}/cloud-hypervisor/build-static-clh.sh"
 readonly firecracker_builder="${static_build_dir}/firecracker/build-static-firecracker.sh"
 readonly kernel_builder="${static_build_dir}/kernel/build.sh"
 readonly qemu_builder="${static_build_dir}/qemu/build-static-qemu.sh"
+readonly qemu_experimental_builder="${static_build_dir}/qemu/build-static-qemu-experimental.sh"
 readonly shimv2_builder="${static_build_dir}/shim-v2/build.sh"
 readonly virtiofsd_builder="${static_build_dir}/virtiofsd/build-static-virtiofsd.sh"
 
@@ -74,6 +75,7 @@ options:
 	kernel
 	kernel-experimental
 	qemu
+	experimental
 	rootfs-image
 	rootfs-initrd
 	shim-v2
@@ -117,6 +119,15 @@ install_qemu() {
 	export qemu_version="$(yq r $versions_yaml assets.hypervisor.qemu.version)"
 	"${qemu_builder}"
 	tar xvf "${builddir}/kata-static-qemu.tar.gz" -C "${destdir}"
+}
+
+# Install experimental static qemu asset
+install_experimental_qemu() {
+	info "build static qemu-experimental"
+	export qemu_repo="$(yq r $versions_yaml assets.hypervisor.qemu-experimental.url)"
+	export qemu_version="$(yq r $versions_yaml assets.hypervisor.qemu-experimental.version)"
+	"${qemu_experimental_builder}"
+	tar xvf "${builddir}/kata-static-qemu-experimental.tar.gz" -C "${destdir}"
 }
 
 # Install static firecracker asset
@@ -190,6 +201,8 @@ handle_build() {
 
 	qemu) install_qemu ;;
 
+	qemu-experimental) install_experimental_qemu ;;
+
 	rootfs-image) install_image ;;
 
 	rootfs-initrd) install_initrd ;;
@@ -232,6 +245,7 @@ main() {
 		kernel
 		kernel-experimental
 		qemu
+		qemu-experimental
 		rootfs-image
 		rootfs-initrd
 		shim-v2
