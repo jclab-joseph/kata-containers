@@ -20,6 +20,7 @@ jobs:
           - kernel
           - shim-v2
           - qemu
+          - qemu-experimental
           - cloud-hypervisor
           - firecracker
           - rootfs-image

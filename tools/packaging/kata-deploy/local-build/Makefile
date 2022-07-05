@@ -45,9 +45,11 @@ kernel-tarball:
 kernel-experimental-tarball:
 	${MAKE} $@-build
 
-
 qemu-tarball:
 	${MAKE} $@-build
+
+qemu-experimental-tarball:
+	${MAKE} $@-experimental-build
 
 rootfs-image-tarball:
 	${MAKE} $@-build
