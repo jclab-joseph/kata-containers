@@ -49,7 +49,7 @@ qemu-tarball:
 	${MAKE} $@-build
 
 qemu-experimental-tarball:
-	${MAKE} $@-experimental-build
+	${MAKE} $@-build
 
 rootfs-image-tarball:
 	${MAKE} $@-build
